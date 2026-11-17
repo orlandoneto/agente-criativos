@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<style>
+{{ fontes_css|safe }}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --w: {{ width }}px; --h: {{ height }}px; --pad: 72px;
+  --hl: {{ cor_hl }}; --hl1: {{ hl1 }}; --hl3: {{ hl3 }}; --on-hl: {{ on_hl }}; --tag: {{ cor_tag }};
+}
+html, body { width: var(--w); height: var(--h); overflow: hidden; background: #000; }
+body { font-family: '{{ fonte_corpo }}', 'Montserrat', 'Segoe UI', sans-serif; color: {{ cor_texto }}; -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: var(--w); height: var(--h); overflow: hidden;
+  background: radial-gradient(ellipse at 30% 15%, #26263a 0%, {{ fundo_cor }} 55%, #000 100%); }
+.foto { position: absolute; inset: -40px; background-size: cover; background-position: center;
+  {% if fundo_uri %}background-image: url("{{ fundo_uri }}");{% endif %}
+  filter: blur(18px) brightness(.55) saturate(1.1); transform: scale(1.06); }
+.veu { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 40%, rgba(0,0,0,.8) 100%); }
+.conteudo { position: absolute; inset: var(--pad); display: flex; flex-direction: column; justify-content: center; gap: 34px; }
+.topo { position: absolute; top: var(--pad); left: var(--pad); right: var(--pad); display: flex; align-items: center; justify-content: space-between; }
+.num { font-family: 'Bebas Neue', 'Anton', sans-serif; font-size: 44px; letter-spacing: .08em; line-height: 1; padding: 12px 22px 8px;
+  {% if estilo == 'news' %}background: var(--tag);{% else %}background: rgba(0,0,0,.45); border: 2px solid rgba(255,255,255,.35); border-radius: 999px;{% endif %} }
+.marca { font-weight: 800; font-size: 24px; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.logo { height: 60px; max-width: 220px; object-fit: contain; }
+.ico { width: 112px; height: 112px; border-radius: 50%; background: var(--hl); color: var(--on-hl);
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+.ico svg { width: 58px; height: 58px; }
+.titulo { font-family: '{{ fonte_titulo }}', 'Anton', 'Bebas Neue', Impact, sans-serif; text-transform: uppercase;
+  font-size: 112px; line-height: 1.04; max-height: 480px; overflow: hidden; overflow-wrap: normal; word-break: keep-all;
+  text-shadow: 0 4px 22px rgba(0,0,0,.55); {% if estilo == 'ad' %}text-align: left;{% endif %} }
+.titulo .hl { color: var(--hl); }
+.texto { font-weight: 600; font-size: 38px; line-height: 1.38; color: #ECECEC; max-height: 330px; overflow: hidden;
+  {% if estilo == 'ad' %}padding: 30px 34px; border-radius: 26px; background: rgba(12,12,22,.62); border: 1.5px solid rgba(255,255,255,.18);{% endif %} }
+.base { position: absolute; left: var(--pad); right: var(--pad); bottom: var(--pad); display: flex; align-items: center; gap: 18px; }
+.barra { width: 72px; height: 8px; background: {% if estilo == 'news' %}var(--tag){% else %}var(--hl){% endif %}; border-radius: 2px; }
+.handle { font-weight: 800; font-size: 30px; }
+.seta { margin-left: auto; display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
+.seta svg { width: 30px; height: 30px; }
+.cta { margin-left: auto; display: inline-flex; align-items: center; gap: 14px; padding: 22px 46px; border-radius: {{ cta_raio }};
+  color: var(--on-hl); font-weight: 900; font-size: 32px; letter-spacing: .04em; text-transform: uppercase;
+  background: linear-gradient(180deg, var(--hl1) 0%, var(--hl) 55%, var(--hl3) 100%); box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+.cta svg { width: 32px; height: 32px; }
+</style>
+</head>
+<body>
+<div class="slide" data-estilo="{{ estilo }}" data-formato="carrossel" data-slide="{{ numero }}">
+  <div class="foto"></div>
+  <div class="veu"></div>
+  <div class="topo">
+    <div class="num">{{ '%02d' % numero }}/{{ '%02d' % total }}</div>
+    {% if logo_uri %}<img class="logo" src="{{ logo_uri }}" alt="{{ nome }}" />{% elif nome and nome != 'Marca' %}<div class="marca">{{ nome }}</div>{% endif %}
+  </div>
+  <div class="conteudo">
+    {% if estilo == 'ad' %}<div class="ico" data-icone="{{ icone }}">{{ icone_svg|safe }}</div>{% endif %}
+    <h1 class="titulo" id="titulo">{% for p in partes %}{% if p.hl %}<span class="hl">{{ p.texto }}</span>{% else %}{{ p.texto }}{% endif %}{% if not loop.last %} {% endif %}{% endfor %}</h1>
+    {% if texto %}<p class="texto">{{ texto }}</p>{% endif %}
+  </div>
+  <div class="base">
+    <span class="barra"></span>{% if handle %}<span class="handle">{{ handle }}</span>{% endif %}
+    {% if ultimo and cta %}<span class="cta">{{ cta }}{{ seta_svg|safe }}</span>{% elif not ultimo %}<span class="seta">Arraste {{ seta_svg|safe }}</span>{% endif %}
+  </div>
+</div>
+<script>
+function fit(el, min) {
+  const cs = getComputedStyle(el);
+  const maxH = parseFloat(cs.maxHeight);
+  el.style.maxHeight = 'none'; el.style.overflow = 'visible';
+  let s = parseFloat(cs.fontSize);
+  while ((el.offsetHeight > maxH || el.scrollWidth > el.clientWidth + 1) && s > min) { s -= 2; el.style.fontSize = s + 'px'; }
+  el.dataset.fit = String(s); el.dataset.maxh = String(maxH);
+}
+function fitTexto(el, min) {
+  if (!el) return;
+  let s = parseFloat(getComputedStyle(el).fontSize);
+  while (el.scrollHeight > el.clientHeight + 1 && s > min) { s -= 1; el.style.fontSize = s + 'px'; }
+}
+document.fonts.ready.then(() => { fit(document.getElementById('titulo'), 56); fitTexto(document.querySelector('.texto'), 26); document.body.dataset.ready = '1'; });
+</script>
+</body>
+</html>

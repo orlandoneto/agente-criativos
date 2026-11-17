@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<style>
+@font-face{…}
+@font-face{…}
+@font-face{…}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+:root {
+  --w: 1080px; --h: 1350px;
+  --amarelo: #FFD60A; --ouro1: #FFE878; --ouro2: #FFD60A; --ouro3: #D1AF08; --on-hl: #1A1300;
+  --pad: 60px;
+}
+html, body { width: var(--w); height: var(--h); overflow: hidden; background: #000; }
+body { font-family: 'Montserrat', 'Montserrat', 'Segoe UI', sans-serif; color: #FFFFFF; -webkit-font-smoothing: antialiased; }
+.ad { position: relative; width: var(--w); height: var(--h); overflow: hidden;
+  background: radial-gradient(ellipse at 50% 35%, #2b2350 0%, #0B0B0F 60%, #000 100%); }
+.cena { position: absolute; inset: 0; background-size: cover; background-position: center;
+   }
+.veu { position: absolute; inset: 0; background:
+  linear-gradient(180deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 30%, rgba(0,0,0,.15) 48%,
+  rgba(0,0,0,.6) 70%, rgba(0,0,0,.92) 100%); }
+.escurecer .veu { background:
+  linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.7) 30%, rgba(0,0,0,.55) 48%,
+  rgba(0,0,0,.78) 70%, rgba(0,0,0,.95) 100%); }
+.col { position: absolute; inset: 0; padding: var(--pad); display: flex; flex-direction: column;
+  align-items: center; gap: 26px; }
+.pill { display: inline-flex; align-items: center; gap: 12px; padding: 12px 28px; border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.4); background: rgba(0,0,0,.4);
+  font-weight: 800; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; }
+.pill .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--amarelo);
+  box-shadow: 0 0 12px var(--amarelo); }
+.headline { width: 100%; text-align: center; font-family: 'Anton', 'Anton', 'Bebas Neue', Impact, sans-serif;
+  text-transform: uppercase; line-height: 1.0; font-size: 128px;
+  max-height: 400px; overflow: hidden; overflow-wrap: normal; word-break: keep-all;
+  text-shadow: 0 6px 26px rgba(0,0,0,.6); }
+.headline .hl { color: var(--amarelo); }
+.palco { position: relative; flex: 1 1 auto; min-height: 0; width: 100%;
+  display: flex; align-items: center; justify-content: center; }
+.palco img { max-width: 78%; max-height: 100%; object-fit: contain;
+  filter: drop-shadow(0 26px 40px rgba(0,0,0,.6)); }
+.badge { position: absolute; right: 0; top: 0; width: 200px; height: 200px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 18px; transform: rotate(-10deg); color: var(--on-hl);
+  background: radial-gradient(circle at 35% 30%, var(--ouro1) 0%, var(--ouro2) 55%, var(--ouro3) 100%);
+  border: 6px solid #fff; box-shadow: 0 14px 34px rgba(0,0,0,.5);
+  font-family: 'Anton', 'Anton', sans-serif; font-size: 44px; line-height: .95; text-transform: uppercase; }
+.features { width: 100%; display: grid; gap: 16px;
+  grid-template-columns: repeat(2, 1fr); }
+.feat { display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+  border-radius: 22px; background: rgba(12,12,22,.62); border: 1.5px solid rgba(255,255,255,.18); }
+.feat .ico { flex: 0 0 auto; width: 64px; height: 64px; border-radius: 50%;
+  background: var(--amarelo); color: var(--on-hl); display: flex; align-items: center; justify-content: center; }
+.feat .txt { font-weight: 700; font-size: 26px; line-height: 1.15; }
+.cta { display: inline-flex; align-items: center; gap: 16px; padding: 26px 64px;
+  border-radius: 999px; color: var(--on-hl); font-weight: 900; font-size: 38px;
+  letter-spacing: .04em; text-transform: uppercase;
+  background: linear-gradient(180deg, var(--ouro1) 0%, var(--ouro2) 55%, var(--ouro3) 100%);
+  box-shadow: 0 14px 34px rgba(245,180,0,.45), inset 0 2px 0 rgba(255,255,255,.6); }
+.handle { font-weight: 700; font-size: 24px; opacity: .85; letter-spacing: .04em; display: flex; align-items: center; gap: 22px; }
+.arraste { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.arraste svg { width: 26px; height: 26px; }
+.logo { position: absolute; left: var(--pad); top: calc(var(--pad) - 6px); height: 56px; max-width: 200px;
+  object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,.6)); }
+.credito { position: absolute; left: 16px; bottom: 12px; font-size: 15px; opacity: .55; }
+</style>
+</head>
+<body>
+<div class="ad" data-estilo="ad" data-formato="4x5">
+  <div class="cena"></div>
+  <div class="veu"></div>
+  <div class="col">
+    <div class="pill"><span class="dot"></span>Ebook gratuito</div>
+    <h1 class="headline" id="headline"><span class="hl">Domine o design</span> <span>em 7 dias</span></h1>
+    <div class="palco">
+      
+      <div class="badge">Grátis</div>
+    </div>
+    <div class="features">
+      <div class="feat" data-icone="zap"><span class="ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" > <path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /> </svg></span><span class="txt">Acesso imediato</span></div><div class="feat" data-icone="gift"><span class="ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v14" /> <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /> <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" /> <rect x="3" y="7" width="18" height="4" rx="1" /> </svg></span><span class="txt">Bônus exclusivos</span></div><div class="feat" data-icone="shield-check"><span class="ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg></span><span class="txt">Garantia de 7 dias</span></div><div class="feat" data-icone="users"><span class="ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg></span><span class="txt">Comunidade VIP</span></div>
+    </div>
+    <div class="cta">Baixe agora<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></div>
+    <div class="handle"><span>@minhamarca</span></div>
+  </div>
+  
+  
+</div>
+<script>
+function fit(el, min) {
+  const cs = getComputedStyle(el);
+  const maxH = parseFloat(cs.maxHeight);
+  el.style.maxHeight = 'none';
+  el.style.overflow = 'visible';
+  let s = parseFloat(cs.fontSize);
+  while ((el.offsetHeight > maxH || el.scrollWidth > el.clientWidth + 1) && s > min) {
+    s -= 2; el.style.fontSize = s + 'px';
+  }
+  el.dataset.fit = String(s);
+  el.dataset.maxh = String(maxH);
+}
+document.fonts.ready.then(() => { fit(document.getElementById('headline'), 48); document.body.dataset.ready = '1'; });
+</script>
+</body>
+</html>

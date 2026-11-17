@@ -1,0 +1,33 @@
+# Brand kit da Minha Marca — lido pelo agente (templates + prompts). Validação: app/brand_kit.py
+nome: Minha Marca
+handle: "@minhamarca"
+cores:
+  primaria: "#8B5CF6"   # roxo da marca (perfil.md)
+  destaque: "#FFD60A"   # amarelo das palavras em destaque / CTA (amostras aprovadas)
+  fundo: "#09090F"
+  texto: "#FFFFFF"
+  tag: "#E10600"        # tarja vermelha do card de notícia
+fontes:
+  titulo: Anton
+  corpo: Montserrat
+logo: null              # ex.: logo.png (transparente) nesta pasta; vazio = só o @
+tom_de_voz: >-
+  Criativo, profissional e generoso. Fala com designers e social media como colega experiente:
+  direto, prático, sem jargão vazio nem sensacionalismo.
+palavras_proibidas:
+  - milagre
+  - milagroso
+  - garantido
+  - enriqueça
+  - fique rico
+  - últimas vagas
+  - só hoje
+  - clique aqui
+hashtags_padrao:
+  - "#minhamarca"
+  - "#designgrafico"
+cta:
+  texto_padrao: Baixe agora
+  forma: pilula
+  verbos: [Baixe, Salve, Comente, Garanta, Acesse]
+  regra: sem urgência falsa (fake scarcity); um verbo no imperativo
